@@ -52,12 +52,13 @@ const (
 // new model in each tea update.
 type model struct {
 	// Main Panels
-	fileModel       filemodel.Model
-	sidebarModel    sidebar.Model
-	processBarModel processbar.Model
-	clipboard       clipboard.Model
-	clipboardWriter func(string) error
-	focusPanel      focusPanelType
+	fileModel           filemodel.Model
+	sidebarModel        sidebar.Model
+	processBarModel     processbar.Model
+	clipboard           clipboard.Model
+	clipboardWriter     func(string) error
+	fileClipboardWriter func([]string) error
+	focusPanel          focusPanelType
 
 	// Modals
 	notifyModel     notify.Model

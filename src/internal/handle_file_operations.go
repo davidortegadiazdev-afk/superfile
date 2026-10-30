@@ -267,6 +267,25 @@ func (m *model) copyMultipleItem(cut bool) {
 	m.clipboard.SetItems(items)
 }
 
+// Copy to the native clipboard asynchronously; superfile's internal clipboard
+// remains usable even if the system clipboard is unavailable (for example SSH).
+func (m *model) copyFilesToSystemClipboardCmd() tea.Cmd {
+	if m.fileClipboardWriter == nil || len(m.clipboard.GetItems()) == 0 {
+		return nil
+	}
+	items := append([]string(nil), m.clipboard.GetItems()...)
+	writer := m.fileClipboardWriter
+	reqID := m.nextIoReqCnt()
+	return func() tea.Msg {
+		if err := writer(items); err != nil {
+			slog.Error("Error copying files to system clipboard", "error", err)
+			return NewNotifyModalMsg(notify.New(true, "System clipboard unavailable",
+				"Files can still be pasted inside superfile.\n"+err.Error(), notify.NoAction), reqID)
+		}
+		return nil
+	}
+}
+
 func (m *model) getPasteItemCmd() tea.Cmd {
 	copyItems := m.clipboard.PruneInaccessibleItemsAndGet()
 	cut := m.clipboard.IsCut()

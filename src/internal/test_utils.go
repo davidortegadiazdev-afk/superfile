@@ -48,6 +48,8 @@ func defaultTestModelWithFilePreview(dirs ...string) *model {
 }
 
 func setModelParamsForTest(m *model, disablePreview bool) *model {
+	// Unit tests must not overwrite the user's native clipboard.
+	m.fileClipboardWriter = nil
 	m.disableMetadata = true
 	if disablePreview {
 		m.fileModel.FilePreview.Close()

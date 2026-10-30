@@ -153,6 +153,14 @@ spf
 
 ## Supported Systems
 
+On macOS, copying files with `ctrl+c` (or your configured `copy_items` hotkey)
+also puts the selected files and folders on the system clipboard. Switch to Finder
+or another application that accepts files and press `⌘V` to paste them. The files
+remain available for pasting inside superfile with `ctrl+v` as well.
+`ctrl+p` (`copy_path`) copies paths as text. Cutting files remains internal to
+superfile. Native file copying requires superfile to run on the Mac whose clipboard
+you want to use; it does not transfer files from a remote SSH session.
+
 - \[x\] Linux
 - \[x\] macOS
 - \[x\] Windows (Not fully supported yet)

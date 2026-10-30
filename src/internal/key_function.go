@@ -208,6 +208,7 @@ func (m *model) filePanelSelectModeKey(msg string) tea.Cmd {
 		return m.getDeleteTriggerCmd(true)
 	case slices.Contains(common.Hotkeys.CopyItems, msg):
 		m.copyMultipleItem(false)
+		return m.copyFilesToSystemClipboardCmd()
 	case slices.Contains(common.Hotkeys.CutItems, msg):
 		m.copyMultipleItem(true)
 	case slices.Contains(common.Hotkeys.CopyPath, msg):
@@ -230,6 +231,7 @@ func (m *model) filePanelNormalModeKey(msg string) tea.Cmd {
 		return m.getDeleteTriggerCmd(true)
 	case slices.Contains(common.Hotkeys.CopyItems, msg):
 		m.copySingleItem(false)
+		return m.copyFilesToSystemClipboardCmd()
 	case slices.Contains(common.Hotkeys.CutItems, msg):
 		m.copySingleItem(true)
 	case slices.Contains(common.Hotkeys.FilePanelItemRename, msg):

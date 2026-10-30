@@ -5,6 +5,8 @@ import (
 
 	"github.com/atotto/clipboard"
 
+	"github.com/yorukot/superfile/src/pkg/fileclipboard"
+
 	"github.com/yorukot/superfile/src/internal/ui/helpmenu"
 
 	"github.com/yorukot/superfile/src/internal/ui/filemodel"
@@ -31,20 +33,21 @@ import (
 func defaultModelConfig(toggleDotFile, toggleFooter, firstUse bool,
 	firstPanelPaths []string, zClient *zoxidelib.Client) *model {
 	return &model{
-		focusPanel:      nonePanelFocus,
-		processBarModel: processbar.New(),
-		clipboardWriter: clipboard.WriteAll,
-		sidebarModel:    sidebar.New(),
-		fileMetaData:    metadata.New(),
-		fileModel:       filemodel.New(firstPanelPaths, toggleDotFile),
-		helpMenu:        helpmenu.New(),
-		promptModal:     prompt.DefaultModel(prompt.PromptMinHeight, prompt.PromptMinWidth),
-		zoxideModal:     zoxideui.DefaultModel(zoxideui.ZoxideMinHeight, zoxideui.ZoxideMinWidth, zClient),
-		sortModal:       sortmodel.New(),
-		zClient:         zClient,
-		modelQuitState:  notQuitting,
-		toggleFooter:    toggleFooter,
-		firstUse:        firstUse,
-		hasTrash:        common.InitTrash(),
+		focusPanel:          nonePanelFocus,
+		processBarModel:     processbar.New(),
+		clipboardWriter:     clipboard.WriteAll,
+		fileClipboardWriter: fileclipboard.Writer(),
+		sidebarModel:        sidebar.New(),
+		fileMetaData:        metadata.New(),
+		fileModel:           filemodel.New(firstPanelPaths, toggleDotFile),
+		helpMenu:            helpmenu.New(),
+		promptModal:         prompt.DefaultModel(prompt.PromptMinHeight, prompt.PromptMinWidth),
+		zoxideModal:         zoxideui.DefaultModel(zoxideui.ZoxideMinHeight, zoxideui.ZoxideMinWidth, zClient),
+		sortModal:           sortmodel.New(),
+		zClient:             zClient,
+		modelQuitState:      notQuitting,
+		toggleFooter:        toggleFooter,
+		firstUse:            firstUse,
+		hasTrash:            common.InitTrash(),
 	}
 }
